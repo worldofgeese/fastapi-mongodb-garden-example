@@ -1,0 +1,4 @@
+.garden/**
+terraform*
+.terraform.lock.hcl
+garden.tfvars.json

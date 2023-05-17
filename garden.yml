@@ -1,0 +1,36 @@
+kind: Build
+type: container
+name: api
+spec:
+  publishId: ${action.deploy.my-terraform.outputs.gcp_repository_url}/api
+
+---
+
+kind: Deploy
+type: helm
+name: my-mongodb
+spec:
+  chart:
+    name: mongodb
+    repo: https://charts.bitnami.com/bitnami
+    version: "13.10.2"
+  values:
+    readinessProbe:
+      enabled: false
+    auth:
+      usernames: 
+        - "my-user"
+      passwords:
+        - "my-password"
+      databases:
+        - "my-database"
+---
+
+kind: Deploy
+type: terraform
+name: my-terraform
+spec: 
+  autoApply: true
+  variables:
+    project_id: devrel-348008
+
