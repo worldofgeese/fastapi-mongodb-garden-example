@@ -2,7 +2,7 @@ kind: Build
 type: container
 name: api
 spec:
-  publishId: ${action.deploy.my-terraform.outputs.gcp_repository_url}/api
+  publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
 
 ---
 
