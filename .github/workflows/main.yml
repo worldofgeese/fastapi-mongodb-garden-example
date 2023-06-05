@@ -7,12 +7,6 @@ jobs:
   garden-ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Start minikube
-        uses: medyagh/setup-minikube@v0.0.13
-
-      - name: Export kubeconfig for Garden
-        run: KUBECONFIG=$(cat $HOME/.kube/config | base64) >> "$GITHUB_ENV"
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -26,9 +20,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Start minikube
+        uses: medyagh/setup-minikube@v0.0.13
+
+      - name: Export kubeconfig for Garden
+        run: echo ENCODED_KUBECONFIG=$(cat ~/.kube/config | base64 -w 0) >> "$GITHUB_ENV"
+
       - name: Build, tag, and push Docker image to Amazon ECR
         uses: garden-io/garden-action@v1.1
         with:
           command: >
             publish
-          kubeconfig: ${{ env.KUBECONFIG }}
+          kubeconfig: ${{ env.ENCODED_KUBECONFIG }}
