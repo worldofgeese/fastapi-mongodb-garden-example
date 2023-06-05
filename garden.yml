@@ -1,8 +1,8 @@
-kind: Build
-type: container
-name: api
-spec:
-  publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
+# kind: Build
+# type: container
+# name: api
+# spec:
+#   publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
 
 ---
 
@@ -34,3 +34,10 @@ spec:
   variables:
     project_id: devrel-348008
 
+---
+
+kind: Build
+type: container
+name: api
+spec:
+  publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}/api
