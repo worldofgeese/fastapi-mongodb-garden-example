@@ -1,6 +1,6 @@
 kind: Build
 type: container
-name: api
+name: api-image-gcp
 spec:
   publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
 
@@ -38,7 +38,7 @@ spec:
 
 kind: Build
 type: container
-name: api
+name: api-image-aws
 spec:
   publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}/api
 
@@ -46,6 +46,6 @@ spec:
 
 kind: Build
 type: container
-name: api
+name: api-image-acr
 spec:
   publishId: ${actions.deploy.my-terraform.outputs.acr_repository_url}/api
