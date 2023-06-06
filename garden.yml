@@ -1,8 +1,8 @@
-# kind: Build
-# type: container
-# name: api
-# spec:
-#   publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
+kind: Build
+type: container
+name: api
+spec:
+  publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
 
 ---
 
@@ -41,3 +41,11 @@ type: container
 name: api
 spec:
   publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}/api
+
+---
+
+kind: Build
+type: container
+name: api
+spec:
+  publishId: ${actions.deploy.my-terraform.outputs.acr_repository_url}/api
