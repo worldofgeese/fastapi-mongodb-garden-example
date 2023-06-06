@@ -48,4 +48,4 @@ kind: Build
 type: container
 name: api-image-acr
 spec:
-  publishId: ${actions.deploy.my-terraform.outputs.acr_repository_url}/api
+  publishId: ${actions.deploy.my-terraform.outputs.acr_registry_url}/api

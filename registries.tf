@@ -58,3 +58,20 @@ resource "azurerm_container_registry" "acr_registry" {
 output "acr_registry_url" {
   value = azurerm_container_registry.acr_registry.login_server
 }
+
+resource "google_storage_bucket" "default" {
+  name          = "bucket-tfstate-${local.random_suffix}"
+  force_destroy = false
+  location      = "EU"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
+}
+
+terraform {
+ backend "gcs" {
+   bucket  = "bucket-tfstate-231954e9"
+   prefix  = "terraform/state"
+ }
+}
