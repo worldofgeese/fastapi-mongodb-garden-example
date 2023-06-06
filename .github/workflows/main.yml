@@ -27,8 +27,8 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Login into ECR 
+        run: echo ::set-output name=logged-in::$(aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-central-1.amazonaws.com)
 
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1

@@ -40,7 +40,7 @@ kind: Build
 type: container
 name: api-image-aws
 spec:
-  publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}/api
+  publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}
 
 ---
 
