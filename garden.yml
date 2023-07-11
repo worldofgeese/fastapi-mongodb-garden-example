@@ -5,7 +5,6 @@ spec:
   publishId: ${actions.deploy.my-terraform.outputs.gcp_repository_url}/api
 
 ---
-
 kind: Deploy
 type: helm
 name: my-mongodb
@@ -18,24 +17,22 @@ spec:
     readinessProbe:
       enabled: false
     auth:
-      usernames: 
+      usernames:
         - "my-user"
       passwords:
         - "my-password"
       databases:
         - "my-database"
 ---
-
 kind: Deploy
 type: terraform
 name: my-terraform
-spec: 
+spec:
   autoApply: true
   variables:
     project_id: devrel-348008
 
 ---
-
 kind: Build
 type: container
 name: api-image-aws
@@ -43,9 +40,17 @@ spec:
   publishId: ${actions.deploy.my-terraform.outputs.aws_repository_url}
 
 ---
-
 kind: Build
 type: container
 name: api-image-acr
 spec:
   publishId: ${actions.deploy.my-terraform.outputs.acr_registry_url}/api
+
+---
+kind: Run
+type: exec
+name: echo
+dependencies:
+  - deploy.my-terraform
+spec:
+  command: ["echo", "${actions.deploy.my-terraform.outputs.gcp_repository_url}"]
